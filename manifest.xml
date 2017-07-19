@@ -32,6 +32,7 @@
       <description>Welcome to the SDF tutorials! This is a great place to start, especially if you're a new SDF user. Each category to the left presents a collection of relevant tutorials.</description>
       <tutorials>
         <tutorial>install</tutorial>
+        <tutorial>quickstart</tutorial>
       </tutorials>
     </category>
 
