@@ -14,6 +14,15 @@
       <skill>beginner</skill>
     </tutorial>
 
+    <tutorial title="Quick start" ref='quickstart'>
+      <markdown version="2.0">install/tutorial_5-0.md</markdown>
+      <description>Quick start.</description>
+      <tags>
+        <tag>quickstart</tag>
+      </tags>
+      <skill>beginner</skill>
+    </tutorial>
+
   </tutorials>
 
   <!-- *************************************** -->
