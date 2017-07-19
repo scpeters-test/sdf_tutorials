@@ -15,7 +15,7 @@
     </tutorial>
 
     <tutorial title="Quick start" ref='quickstart'>
-      <markdown version="5.0">quickstart/tutorial_5-0.md</markdown>
+      <markdown version="2.0">quickstart/tutorial_2-0.md</markdown>
       <description>Quick start.</description>
       <tags>
         <tag>quickstart</tag>
