@@ -14,11 +14,11 @@
       <skill>beginner</skill>
     </tutorial>
 
-    <tutorial title="Quick start" ref='quickstart'>
+    <tutorial title="Quickstart" ref='quickstart'>
       <markdown version="2.0">quickstart/tutorial_2-0.md</markdown>
-      <description>Quick start.</description>
+      <description>Quickstart guide to SDF parsing.</description>
       <tags>
-        <tag>install</tag>
+        <tag>quickstart</tag>
       </tags>
       <skill>beginner</skill>
     </tutorial>
