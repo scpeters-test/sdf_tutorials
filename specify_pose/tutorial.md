@@ -1,12 +1,5 @@
 # Specifying pose in SDFormat
 
-<b>testing bold</b>
-
-<script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML' async></script>
-
-When $a \ne 0$, there are two solutions to \(ax^2 + bx + c = 0\) and they are
-$$x = {-b \pm \sqrt{b^2-4ac} \over 2a}.$$
-
 A fundamental tool for robot modeling is the ability to concisely and
 intuitively express relative position and orientation of model components
 in 3-D.
@@ -42,6 +35,8 @@ This convention is an extrinsic X-Y-Z rotation by roll, pitch, and yaw angles
 (r, p, y), which is equivalent to the rotation sequence expressed by the
 multiplication of the following rotation matrices (duplicated from
 [drake::math::RollPitchYaw](https://github.com/RobotLocomotion/drake/blob/246b2c038/math/roll_pitch_yaw.h#L19-L31)).
+
+<script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML' async></script>
 
 $$
     R_{AD}
