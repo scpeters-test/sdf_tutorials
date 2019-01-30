@@ -43,6 +43,8 @@ This convention is an extrinsic X-Y-Z rotation by roll, pitch, and yaw angles
 multiplication of the following rotation matrices (duplicated from
 [drake::math::RollPitchYaw](https://github.com/RobotLocomotion/drake/blob/246b2c038/math/roll_pitch_yaw.h#L19-L31)).
 
+$$ R_{AD} = \begin{matrix} cos(y) & -sin(y) & 0 \\ sin(y) & cos(y) & 0 \\ 0 & 0 & 1 \end{matrix}$$
+
            ⎡cos(y) -sin(y)  0⎤   ⎡ cos(p)  0  sin(p)⎤   ⎡1      0        0 ⎤
     R_AD = ⎢sin(y)  cos(y)  0⎥ * ⎢     0   1      0 ⎥ * ⎢0  cos(r)  -sin(r)⎥
            ⎣    0       0   1⎦   ⎣-sin(p)  0  cos(p)⎦   ⎣0  sin(r)   cos(r)⎦
