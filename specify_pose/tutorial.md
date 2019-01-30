@@ -1,5 +1,7 @@
 # Specifying pose in SDFormat
 
+<b>testing bold</b>
+
 A fundamental tool for robot modeling is the ability to concisely and
 intuitively express relative position and orientation of model components
 in 3-D.
