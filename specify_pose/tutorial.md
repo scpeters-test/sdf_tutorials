@@ -19,7 +19,7 @@ of orientation, please see the `quaternion_from_euler` and `quaternion_to_euler`
 example programs in
 [ignition math pull request 297](https://bitbucket.org/ignitionrobotics/ign-math/pull-requests/297/examples-converting-between-euler-angles/diff).
 
-see <sup>[1](#software)</sup> for info about software
+see [[1]](#software) for info about software
 
 ## Details of roll-pitch-yaw formulation
 
@@ -65,5 +65,5 @@ $$
 $$ R\_{AD} = R\_{AB} * R\_{BC} * R\_{CD} $$
 
 
-<a name="software">1</a>: Here is a link to software implementations.
+<a name="software">[1]</a>: Here is a link to software implementations.
 
