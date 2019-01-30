@@ -54,6 +54,8 @@ $$ R_{AD} = \begin{bmatrix}
   0 & \cos(r) & -\sin(r) \\\
   0 & \sin(r) &  \cos(r) \end{bmatrix}$$
 
+$$ R_{AD} = R_{AB} * R_{BC} * R_{CD} $$
+
            ⎡cos(y) -sin(y)  0⎤   ⎡ cos(p)  0  sin(p)⎤   ⎡1      0        0 ⎤
     R_AD = ⎢sin(y)  cos(y)  0⎥ * ⎢     0   1      0 ⎥ * ⎢0  cos(r)  -sin(r)⎥
            ⎣    0       0   1⎦   ⎣-sin(p)  0  cos(p)⎦   ⎣0  sin(r)   cos(r)⎦
