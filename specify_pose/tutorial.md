@@ -19,6 +19,8 @@ of orientation, please see the `quaternion_from_euler` and `quaternion_to_euler`
 example programs in
 [ignition math pull request 297](https://bitbucket.org/ignitionrobotics/ign-math/pull-requests/297/examples-converting-between-euler-angles/diff).
 
+see [^software]
+
 ## Details of roll-pitch-yaw formulation
 
 There are many different conventions for expressing orientation with Euler
@@ -61,3 +63,8 @@ $$
 $$
 
 $$ R\_{AD} = R\_{AB} * R\_{BC} * R\_{CD} $$
+
+
+[^software]: Here is a link to software implementations.
+
+    stuff
