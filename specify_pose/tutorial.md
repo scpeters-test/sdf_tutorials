@@ -2,6 +2,11 @@
 
 <b>testing bold</b>
 
+<script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML' async></script>
+
+When $a \ne 0$, there are two solutions to \(ax^2 + bx + c = 0\) and they are
+$$x = {-b \pm \sqrt{b^2-4ac} \over 2a}.$$
+
 A fundamental tool for robot modeling is the ability to concisely and
 intuitively express relative position and orientation of model components
 in 3-D.
