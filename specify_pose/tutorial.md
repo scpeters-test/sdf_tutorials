@@ -54,18 +54,7 @@ $$ R_{AD} = \begin{bmatrix}
   0 & \cos(r) & -\sin(r) \\\
   0 & \sin(r) &  \cos(r) \end{bmatrix}$$
 
-$$ R_{AD} = R_{AB} * R_{BC} * R_{CD} $$
-
-$$ R_{AD} = \begin{bmatrix}
-  \cos(y) & -\sin(y) & 0 \\\
-  \sin(y) &  \cos(y) & 0 \\\
-       0  &       0  & 1 \end{bmatrix} * \begin{bmatrix}
-  \cos(p) & 0 & \sin(p) \\\
-       0  & 1 &      0    \\\
- -\sin(p) & 0 & \cos(p) \end{bmatrix} * \begin{bmatrix}
-  1 &      0  &       0  \\\
-  0 & \cos(r) & -\sin(r) \\\
-  0 & \sin(r) &  \cos(r) \end{bmatrix}$$
+$$ R\_{AD} = R\_{AB} * R\_{BC} * R\_{CD} $$
 
            ⎡cos(y) -sin(y)  0⎤   ⎡ cos(p)  0  sin(p)⎤   ⎡1      0        0 ⎤
     R_AD = ⎢sin(y)  cos(y)  0⎥ * ⎢     0   1      0 ⎥ * ⎢0  cos(r)  -sin(r)⎥
