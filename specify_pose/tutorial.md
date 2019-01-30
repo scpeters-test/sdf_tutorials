@@ -65,5 +65,6 @@ $$
 $$ R\_{AD} = R\_{AB} * R\_{BC} * R\_{CD} $$
 
 
-<a name="software">[1]</a>: Here is a link to software implementations.
+<div data-unique="software"><a>[1]</a>: Here is a link to software implementations.
+</div>
 
