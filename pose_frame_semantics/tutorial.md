@@ -98,6 +98,8 @@ models discussed in this section:
       </model>
     </sdf>
 
+ 
+
     <sdf version="1.5">
       <model name="model">
         <pose frame=''>...</pose>
@@ -114,6 +116,7 @@ models discussed in this section:
         </joint>
       </model>
     </sdf>
+
 
 ### Specifying parent and child link names
 
