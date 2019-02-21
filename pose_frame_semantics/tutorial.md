@@ -17,4 +17,18 @@ frames in addition to the existing link and joint frames in the model.
 This document is a work in progress to define the semantics of the pose frame
 attribute.
 
+## Legacy behavior
 
+### Parent frames in sdf 1.4
+
+Use these as default values if pose frame is unspecified.
+
+### Specifying parent and child link names
+
+Joints currently specify parent and child links by name.
+
+nested model convention?
+
+## Proposed behavior
+
+This section includes proposals for
