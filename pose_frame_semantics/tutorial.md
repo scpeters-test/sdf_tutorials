@@ -98,7 +98,7 @@ models discussed in this section:
       </model>
     </sdf>
 
- 
+and
 
     <sdf version="1.5">
       <model name="model">
