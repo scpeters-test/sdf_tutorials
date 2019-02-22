@@ -210,7 +210,66 @@ The following world also contains an invalid joint specification because, while
       </world>
     </sdf>
 
-nested model convention?
+### Support for nested models in sdf 1.5
+
+Support for nested models was added in sdf 1.5, which allows a `<model>`
+element to contain child `<model>`s.
+For example, the following model contains two links nested inside child models.
+
+    <sdf version="1.5">
+      <model name="model">
+        <model name="model1">
+          <link name="link"/>
+        </model>
+        <model name="model2">
+          <link name="link"/>
+        </model>
+      </model>
+    </sdf>
+
+The coordinate frame of each child model is defined relative to its parent
+element, following the convention from sdf 1.4.
+
+A joint can specify the names of parent and child links from sibling models
+by specifying the sibling model name with the delimiter `::` followed
+by the link name.
+
+This model contains a valid joint specification with parent and child
+links from sibling models:
+
+    <sdf version="1.5">
+      <model name="model">
+        <model name="model1">
+          <link name="link"/>
+        </model>
+        <model name="model2">
+          <link name="link"/>
+        </model>
+        <joint name="joint" type="fixed">
+          <parent>model1::link</parent>
+          <child>model2::link</child>
+        </joint>
+      </model>
+    </sdf>
+
+This model contains a valid joint specification with a child sibling link
+and the parent link from a sibling model.
+
+    <sdf version="1.5">
+      <model name="model">
+        <model name="nested_model">
+          <link name="link"/>
+        </model>
+        <link name="link"/>
+        <joint name="joint" type="fixed">
+          <parent>nested_model::link</parent>
+          <child>link</child>
+        </joint>
+      </model>
+    </sdf>
+
+TODO: figure out if a child model is allowed to have the same name as its
+parent.
 
 ## Proposed behavior
 
