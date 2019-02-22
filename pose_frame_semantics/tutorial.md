@@ -273,4 +273,6 @@ parent.
 
 ## Proposed behavior
 
-This section includes proposals for
+This section will include proposals for changes to legacy behavior and
+semantics for referencing pose frames.
+
