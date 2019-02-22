@@ -118,9 +118,97 @@ and
     </sdf>
 
 
-### Specifying parent and child link names
+### Specifying parent and child link names for joints in sdf 1.4
 
-Joints currently specify parent and child links by name.
+Joints specify the parent and child links by name in the `<parent>` and
+`<child>` elements.
+The specified links must exist as siblings of the joint with one exception:
+if one but not both of the parent and child links is specified as `world`
+and a sibling link named `world` does not exist, the `world` link will be
+interpreted as a fixed inertial frame.
+
+The following model contains joint with a valid specification of sibling links.
+
+    <sdf version="1.4">
+      <model name="model">
+        <link name="link1"/>
+        <link name="link2"/>
+        <joint name="joint" type="fixed">
+          <parent>link1</parent>
+          <child>link2</child>
+        </joint>
+      </model>
+    </sdf>
+
+The following models contain joints with a valid specification of one sibling
+link connected to a fixed inertial frame as parent and child.
+
+    <sdf version="1.4">
+      <model name="model">
+        <link name="link"/>
+        <joint name="joint" type="fixed">
+          <parent>world</parent>
+          <child>link</child>
+        </joint>
+      </model>
+    </sdf>
+
+and
+
+    <sdf version="1.4">
+      <model name="model">
+        <link name="link"/>
+        <joint name="joint" type="fixed">
+          <parent>link</parent>
+          <child>world</child>
+        </joint>
+      </model>
+    </sdf>
+
+The following model contains a link named `world`, so the joint connects `link`
+to its sibling, not to a fixed inertial frame.
+
+    <sdf version="1.4">
+      <model name="model">
+        <link name="link"/>
+        <link name="world"/>
+        <joint name="joint" type="fixed">
+          <parent>world</parent>
+          <child>link</child>
+        </joint>
+      </model>
+    </sdf>
+
+The following model contains an invalid joint specification because the parent
+link does not exist.
+
+    <sdf version="1.4">
+      <model name="model">
+        <link name="link"/>
+        <joint name="joint" type="fixed">
+          <parent>fake_link</parent>
+          <child>link</child>
+        </joint>
+      </model>
+    </sdf>
+
+The following world also contains an invalid joint specification because, while
+`link1` does exist in the world, it is not a sibling of the joint.
+
+    <sdf version="1.4">
+      <world name="world_with_invalid_joint">
+        <model name="model1">
+          <link name="link1"/>
+        </model>
+        <model name="model2">
+          <link name="link2"/>
+          <joint name="joint" type="fixed">
+            <parent>link1</parent>
+            <child>link2</child>
+          </joint>
+        </model>
+      </world>
+    </sdf>
 
 nested model convention?
 
