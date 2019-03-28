@@ -2,6 +2,8 @@
 
 This guide will walk you through sdformat's [API](http://sdformat.org/api), showing you the basics on how to use it to parse your SDFs. You'll find the API quite regular, making it very easy to pick up.
 
+<iframe src="https://player.vimeo.com/video/327117996" width="640" height="594" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen/>
+
 ## Prerequisites
 
 Make sure you have [sdformat](http://sdformat.org/tutorials?tut=install) installed on your system.
