@@ -555,3 +555,46 @@ and the `::` delimiter are under
 discussion and subject to change.
 Please see the [proposal](/tutorials?tut=pose_frame_semantics_proposal)
 for the potential new behavior in SDF 2.0.
+
+
+### Parsing stages in sdf 1.4
+
+    world do
+    {
+      model_array.each do |model|
+      {
+        link_map = {}
+
+        link_array.each do |link|
+        {
+          if link.name in link_map.keys
+          {
+            print("Error: duplicate link name [#{link.name}]")
+          }
+
+          link_map[link.name] = link
+        }
+
+        joint_map = {}
+
+        joint_array.each do |joint|
+        {
+          if joint.name in joint_map.keys
+          {
+            print("Error: duplicate joint name [#{joint.name}]")
+          }
+
+          if not joint.parent in link_map.keys
+          {
+            print("Error: parent link [joint.parent] not found for joint [#{joint.name}]")
+          }
+
+          if not joint.child in link_map.keys
+          {
+            print("Error: child link [joint.child] not found for joint [#{joint.name}]")
+          }
+
+          joint_map[joint_name] = joint
+        }
+      }
+    }
