@@ -82,14 +82,18 @@ non-`//frame` elements. The following frame types are implicitly introduced:
   link at its origin defined by `//link/pose`.
 * Joint frames: each joint has a frame named `//joint[@name]`, attached to the
   child link at the joint's origin defined by `//joint/pose`.
-* Model frame: each model has a frame, but it can only be referenced by a
-  `//link/pose` or `//frame/pose` element when its `@relative_to` attribute
-  resolves to empty.
+* Model frame: each model has a frame, but it can only be referenced by a child
+  `//model/link/pose` or `//model/frame/pose` element whose `@relative_to`
+  attribute resolves to empty.
 * World frame: each world has a fixed inertial reference frame that is
   the default frame to which explicit world frames defined by `//world/frame`
   are attached.
   Model poses defined by `//model/pose` are interpreted relative to the implicit
   world frame when the `//model/pose[@relative_to]` attribute is empty.
+* Light frame (when child of world): each `//world/light` has a frame named
+  `//world/light[@name]`, attached to the world's fixed inertial reference
+  frame at the origin defined by `//world/light/pose`.
+  Lights attached to a link (`//link/light`) do not have implicit frames.
 
 These frames and their semantics are described below in more detail.
 
@@ -355,20 +359,24 @@ of the attributes of this `//world/frame` are given below.
 
 The `//world/frame[@name]` attribute specifies the name of the frame. To avoid
 ambiguity, sibling frames—explicit frames specified by `//world/frame` and
-implicit frames specified by `//world/model`—must have unique names.
+implicit frames specified by `//world/model` and `//world/light`—must have
+unique names.
 
 ### The `//world/frame[@attached_to]` attribute
 
 The `//world/frame[@attached_to]` attribute specifies another frame to which
 this frame is attached. A `//world/frame` can be attached to an implicit frame
-(defined by `//world` or `//world/model`) or to an explicit frame defined by
-`//world/frame`. If the `//world/frame[@attached_to]` attribute is not
+(defined by `//world` or `//world/model` or `//world/light`) or to an explicit
+frame defined by `//world/frame`.
+If the `//world/frame[@attached_to]` attribute is not
 specified or is left empty, the frame will be attached to the world frame. If
 the attribute is specified, it must refer to a sibling `//world/frame` or
-`//world/model`.
+`//world/model` or `//world/light`.
 
 When a a `//world/frame` is attached to a `//world/model`, it is indirectly
 attached to the canonical link of the model.
+When a a `//world/frame` is attached to a `//world/light`, it is indirectly
+attached to the `//world` fixed inertial reference frame.
 
 Similar to `//model/frame`, cycles in the `attached_to` graph are not allowed.
 If a `//world/frame` is specified, recursively following the `attached_to`
@@ -386,6 +394,9 @@ the canonical link of a sibling model.
     <link name="L"/>                   <!-- Canonical link. -->
   </model>
   <frame name="F4" attached_to="M0"/>  <!-- Valid: Indirectly attached_to to the canonical link, L, of M0. -->
+
+  <light name="L0"/>
+  <frame name="F5" attached_to="L0"/>  <!-- Valid: Indirectly attached_to to the implicit world frame via L0. -->
 </world>
 ~~~
 
@@ -414,8 +425,9 @@ Cycles in the `relative_to` attribute graph are not allowed and must be
 checked separately from the `attached_to` attribute graph.
 Following the `relative_to` attributes of the specified frames must lead to
 a frame expressed relative to the model frame. The exceptions to this rule are
-`//world/frame/pose[@relative_to]` and `//world/model/pose[@relative_to]` in
-which the terminal frame is the implicit world frame.
+`//world/frame/pose[@relative_to]`, `//world/model/pose[@relative_to]`,
+and `//world/light/pose[@relative_to]`
+in which the terminal frame is the implicit world frame.
 
 ~~~
 <model name="link_pose_relative_to">
@@ -1056,8 +1068,8 @@ There are *seven* phases for validating the kinematics data in a world:
 2.  **Name attribute checking:**
     Check that name attributes are not an empty string `""`, and that sibling
     elements of *any* type have unique names.
-    This check can be limited to `//world/model[@name]`
-    *and `//world/frame[@name]`*
+    This check can be limited to `//world/model[@name]`*, `//world/frame[@name]`,*
+    and `//world/light[@name]`
     since other names will be checked in the following step.
     This step is distinct from validation with the schema because the schema
     only confirms the existence of name attributes, not their content.
@@ -1072,7 +1084,7 @@ There are *seven* phases for validating the kinematics data in a world:
 4.  ***Check `//world/frame[@attached_to]` attribute values:***
     For each `//world/frame`, if the `attached_to` attribute exists and is not
     an empty string `""`, check that the value of the `attached_to` attribute
-    matches the name of a sibling model or frame.
+    matches the name of a sibling model, light, or frame.
 
 5.  ***Check `//world/frame[@attached_to]` graph:***
     Construct an `attached_to` directed graph for the world with each vertex
@@ -1080,7 +1092,7 @@ There are *seven* phases for validating the kinematics data in a world:
 
     5.1 Add a vertex for the implicit world frame.
 
-    5.2 Add a vertex for each model in the world.
+    5.2 Add a vertex for each model and light in the world.
 
     5.3 For each `//world/frame`:
 
@@ -1095,8 +1107,10 @@ There are *seven* phases for validating the kinematics data in a world:
           add an edge from the added vertex to the implicit world frame vertex.
 
     5.4 Verify that the graph has no cycles and that by following the directed
-        edges, every vertex is connected to a model or the implicit world frame.
-        If the directed edges lead from a vertex to the implicit world frame,
+        edges, every vertex is connected to a model, a light, or the implicit
+        world frame.
+        If the directed edges lead from a vertex to a light or the implicit
+        world frame,
         then the `//world/frame` corresponding to that vertex is a fixed
         inertial frame.
         If the directed edges lead to a model, then the `//world/frame`
@@ -1104,30 +1118,31 @@ There are *seven* phases for validating the kinematics data in a world:
         model.
 
 6.  ***Check `//pose[@relative_to]` attribute values:***
-    For each `//model/pose` and `//world/frame/pose`
+    For each `//model/pose`, `//world/light/pose`, and `//world/frame/pose`
     if the `relative_to` attribute exists and is not an empty string `""`,
     check that the value of the `relative_to` attribute
     matches the name of a model or frame that is a sibling of the element
     that contains the `//pose`.
 
 7.  ***Check `//pose[@relative_to]` graph:***
-    Construct a `relative_to` directed graph for the model with each vertex
+    Construct a `relative_to` directed graph for the world with each vertex
     representing a frame:
 
     7.1 Add a vertex for the implicit world frame.
 
-    7.2 Add vertices for each `//world/model` and `//world/frame`.
+    7.2 Add vertices for each `//world/model`, `//world/light`, and
+        `//world/frame`.
 
-    7.3 For each `//world/model`:
+    7.3 For each `//world/model` and `//world/light`:
 
-    7.3.1 If `//world/model/pose[@relative_to]` exists and is not empty,
-          add an edge from the model vertex to the vertex named in
-          `//world/model/pose[@relative_to]`.
+    7.3.1 If `//pose[@relative_to]` exists and is not empty,
+          add an edge from the model/light vertex to the vertex named in
+          `//pose[@relative_to]`.
 
-    7.3.2 Otherwise (ie. if `//world/model/pose` or
-          `//world/model/pose[@relative_to]` do not
-          exist or `//world/model/pose[@relative_to]` is an empty string `""`)
-          add an edge from the model vertex to the implicit world frame vertex.
+    7.3.2 Otherwise (ie. if `//pose` or
+          `//pose[@relative_to]` do not
+          exist or `//pose[@relative_to]` is an empty string `""`)
+          add an edge from the model/light vertex to the implicit world frame vertex.
 
     7.4 For each `//world/frame`:
 
